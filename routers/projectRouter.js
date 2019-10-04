@@ -1,7 +1,7 @@
 const express = require('express');
 
-const Actions = require('../data/helpers/actionModel');
 const Projects = require('../data/helpers/projectModel');
+const Actions = require('../data/helpers/actionModel');
 
 const router = express.Router();
 
@@ -9,9 +9,17 @@ const router = express.Router();
 
 // Endpoints
 
-// GET /api/projects endpoint to Retrieve projects
-router.get('/', (req, res) => {});
-// .get()
+// GET /api/projects endpoint to Retrieve projects - FUNCTIONAL
+router.get('/', (req, res) => {
+  Projects.get()
+    .then(projects => {
+      res.status(200).json(projects);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: 'Error retrieving the projects' });
+    });
+});
 
 // POST /api/projects endpoint to Create a new project
 router.post('/', validateProject, (req, res) => {});
