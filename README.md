@@ -24,15 +24,25 @@ In this challenge, create a web API around the following resources: `Projects` a
 
 Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
-- [ ] Mention two parts of Express that you learned about this week.
+- [x] Mention two parts of Express that you learned about this week.
 
-- [ ] Describe Middleware?
+> Two parts, or features, of Express that we learned about this week are **routing** and **convenience helpers**. **Routing** is a way to select which request handler function is executed based on the URL visited and the HTTP method used, and it provides a way to break an application into smaller parts based on the route. **Convenience helpers** are added by Express to provide out-of-the-box functionality to make writing web applications and API servers easier. Many of these helpers are extension methods added to the homies: the request and response objects.
 
-- [ ] Describe a Resource?
+- [x] Describe Middleware?
 
-- [ ] What can the API return to help clients know if a request was successful?
+> Express middleware adds features and functionality to Express; it can be thought of as an array of functions that are executed in the order in which they're introduced into the server code. When writing Web APIs, we can use middleware for a variety of tasks, from parsing JSON content, to logging request information, to configuring security headers, to even handling routes. Express comes with built-in middleware, but third-party middleware modules can also be installed and imported, and custom middleware can be written as well.
 
-- [ ] How can we partition our application into sub-applications?
+- [x] Describe a Resource?
+
+> A resource is the fundamental concept in RESTful Web API. A resource is an object with a type, associated data, relationships to other resources, and a set of methods that operate on the resource. Everything is a resource in RESTful Web API, and each resource is accessible via a unique URI. Additionally, resources can have multiple representations and are managed using HTTP methods.
+
+- [x] What can the API return to help clients know if a request was successful?
+
+> The API can return a **2xx status code** to help clients know if a request was successful. A status code of **200 (OK)** indicates that the REST API successfully carried out the action that the client requested. A status code of **201 (Created)** indicates that a resource was created inside a collection. A status code of **202 (Accepted)** indicates that a request has been accepted for processing, but that the processing hasn't yet been completed; it's typically used for actions that take a while to process. A status code of **204 (No Content)** indicates when the REST API declines to send back a status message.
+
+- [x] How can we partition our application into sub-applications?
+
+> We can partition our application into sub-applications by using **Express Routers** to make it more modular and easier to maintain. We can use a central router that represents our API and have that router import the routes for endpoints for specific resources, each of which can be handled in a different file.
 
 ## Project Setup
 
@@ -42,8 +52,8 @@ Follow these steps to set up and work on your project:
 - [x] Add your _Project Manager_ as collaborator on Github.
 - [x] Clone your forked version of the Repository.
 - [x] Create a new Branch on the clone: git checkout -b `<firstName-lastName>`.
-- [ ] Implement the project on this Branch, committing changes regularly.
-- [ ] Push commits: git push origin `<firstName-lastName>`.
+- [x] Implement the project on this Branch, committing changes regularly.
+- [x] Push commits: git push origin `<firstName-lastName>`.
 
 Follow these steps for completing your project.
 
