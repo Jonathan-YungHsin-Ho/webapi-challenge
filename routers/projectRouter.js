@@ -64,11 +64,24 @@ router.delete('/:id', (req, res) => {
       res.status(500).json({ message: 'Error removing the project' });
     });
 });
-// .remove()
 
-// GET /api/projects/:id/actions endpoint to Retrieve actions by project
-router.get('/:id/actions', (req, res) => {});
-// .getProjectActions()
+// GET /api/projects/:id/actions endpoint to Retrieve actions by project - FUNCTIONAL
+router.get('/:id/actions', (req, res) => {
+  Projects.getProjectActions(req.params.id)
+    .then(actions => {
+      if (actions[0]) {
+        res.status(200).json(actions);
+      } else {
+        res.status(404).json({ message: 'The project could not be found' });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res
+        .status(500)
+        .json({ message: 'Error getting the actions for the project' });
+    });
+});
 
 // POST /api/projects/:id/actions endpoint to Create a new action by project
 router.post('/:id/actions', validateAction, (req, res) => {});
