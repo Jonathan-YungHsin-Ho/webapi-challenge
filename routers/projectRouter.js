@@ -46,7 +46,16 @@ function validateProjectId(req, res, next) {
 }
 
 function validateProject(req, res, next) {
-  next();
+  if (!Object.keys(req.body).length) {
+    res.status(400).json({ message: 'Missing project data!' });
+  } else if (!req.body.name) {
+    res.status(400).json({ message: 'Missing required "name" field!' });
+  } else if (!req.body.description) {
+    res.status(400).json({ message: 'Missing required "description" field!' });
+  } else {
+    next();
+  }
+  // next();
 }
 
 function validateAction(req, res, next) {
