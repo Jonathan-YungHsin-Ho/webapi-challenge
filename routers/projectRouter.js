@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
     });
 });
 
-// POST /api/projects endpoint to Create a new project
+// POST /api/projects endpoint to Create a new project - FUNCTIONAL
 router.post('/', validateProject, (req, res) => {
   Projects.insert(req.body)
     .then(user => {
@@ -33,7 +33,7 @@ router.post('/', validateProject, (req, res) => {
     });
 });
 
-// PUT /api/projects/:id endpoint to Update a project
+// PUT /api/projects/:id endpoint to Update a project - FUNCTIONAL
 router.put('/:id', (req, res) => {
   Projects.update(req.params.id, req.body)
     .then(project => {
@@ -49,8 +49,21 @@ router.put('/:id', (req, res) => {
     });
 });
 
-// DELETE /api/projects/:id endpoint to Delete a project
-router.delete('/:id', (req, res) => {});
+// DELETE /api/projects/:id endpoint to Delete a project - FUNCTIONAL
+router.delete('/:id', (req, res) => {
+  Projects.remove(req.params.id)
+    .then(count => {
+      if (count > 0) {
+        res.status(200).json({ message: 'The project has been deleted' });
+      } else {
+        res.status(404).json({ message: 'The project could not be found' });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: 'Error removing the project' });
+    });
+});
 // .remove()
 
 // GET /api/projects/:id/actions endpoint to Retrieve actions by project
