@@ -34,7 +34,7 @@ router.post('/', validateProject, (req, res) => {
 });
 
 // PUT /api/projects/:id endpoint to Update a project - FUNCTIONAL
-router.put('/:id', (req, res) => {
+router.put('/:id', validateProject, (req, res) => {
   Projects.update(req.params.id, req.body)
     .then(project => {
       if (project) {
