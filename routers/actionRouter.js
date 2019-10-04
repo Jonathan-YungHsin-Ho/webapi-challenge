@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 });
 
 // PUT /api/actions/:id endpoint to Update an action - FUNCTIONAL
-router.put('/:id', validateActionId, validateAction, (req, res) => {
+router.put('/:id', validateAction, (req, res) => {
   Actions.update(req.params.id, req.body)
     .then(action => {
       if (action) {
@@ -34,8 +34,8 @@ router.put('/:id', validateActionId, validateAction, (req, res) => {
     });
 });
 
-// DELETE /api/actions endpoint to Delete an action
-router.delete('/:id', validateActionId, (req, res) => {
+// DELETE /api/actions/:id endpoint to Delete an action
+router.delete('/:id', (req, res) => {
   Actions.remove(req.params.id)
     .then(count => {
       if (count > 0) {
@@ -51,11 +51,6 @@ router.delete('/:id', validateActionId, (req, res) => {
 });
 
 // **********************************************************************
-
-// Custom Middleware
-function validateActionId(req, res, next) {
-  next();
-}
 
 // Validate body on create new action request - FUNCTIONAL
 function validateAction(req, res, next) {
