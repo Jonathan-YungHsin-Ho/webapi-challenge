@@ -22,8 +22,16 @@ router.get('/', (req, res) => {
 });
 
 // POST /api/projects endpoint to Create a new project
-router.post('/', validateProject, (req, res) => {});
-// .insert()
+router.post('/', validateProject, (req, res) => {
+  Projects.insert(req.body)
+    .then(user => {
+      res.status(201).json(user);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: 'Error adding the project' });
+    });
+});
 
 // PUT /api/projects/:id endpoint to Update a project
 router.put('/:id', validateProjectId, (req, res) => {});
@@ -53,7 +61,7 @@ function validateProjectId(req, res, next) {
   next();
 }
 
-// Validate  on create new project request - NEEDS TEST
+// Validate  on create new project request - FUNCTIONAL
 function validateProject(req, res, next) {
   if (!Object.keys(req.body).length) {
     res.status(400).json({ message: 'Missing project data!' });
