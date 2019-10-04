@@ -34,32 +34,36 @@ router.post('/', validateProject, (req, res) => {
 });
 
 // PUT /api/projects/:id endpoint to Update a project
-router.put('/:id', validateProjectId, (req, res) => {});
-// .update()
+router.put('/:id', (req, res) => {
+  Projects.update(req.params.id, req.body)
+    .then(project => {
+      if (project) {
+        res.status(200).json(project);
+      } else {
+        res.status(404).json({ message: 'The project could not be found' });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: 'Error updating the project' });
+    });
+});
 
 // DELETE /api/projects/:id endpoint to Delete a project
-router.delete('/:id', validateProjectId, (req, res) => {});
+router.delete('/:id', (req, res) => {});
 // .remove()
 
 // GET /api/projects/:id/actions endpoint to Retrieve actions by project
-router.get('/:id/actions', validateProjectId, (req, res) => {});
+router.get('/:id/actions', (req, res) => {});
 // .getProjectActions()
 
 // POST /api/projects/:id/actions endpoint to Create a new action by project
-router.post(
-  '/:id/actions',
-  validateProjectId,
-  validateAction,
-  (req, res) => {},
-);
+router.post('/:id/actions', validateAction, (req, res) => {});
 // .insert()
 
 // **********************************************************************
 
 // Custom Middleware
-function validateProjectId(req, res, next) {
-  next();
-}
 
 // Validate  on create new project request - FUNCTIONAL
 function validateProject(req, res, next) {
@@ -72,7 +76,6 @@ function validateProject(req, res, next) {
   } else {
     next();
   }
-  // next();
 }
 
 // Validate body on create new action request - NEEDS TEST
@@ -86,7 +89,6 @@ function validateAction(req, res, next) {
   } else {
     next();
   }
-  // next();
 }
 
 // **********************************************************************
