@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
     });
 });
 
-// PUT /api/actions endpoint to Update an action
+// PUT /api/actions/:id endpoint to Update an action - FUNCTIONAL
 router.put('/:id', validateActionId, validateAction, (req, res) => {
   Actions.update(req.params.id, req.body)
     .then(action => {
@@ -35,8 +35,20 @@ router.put('/:id', validateActionId, validateAction, (req, res) => {
 });
 
 // DELETE /api/actions endpoint to Delete an action
-router.delete('/:id', validateActionId, (req, res) => {});
-// .remove()
+router.delete('/:id', validateActionId, (req, res) => {
+  Actions.remove(req.params.id)
+    .then(count => {
+      if (count > 0) {
+        res.status(200).json({ message: 'The action has been deleted' });
+      } else {
+        res.status(404).json({ message: 'The action could not be found' });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: 'Error removing the action' });
+    });
+});
 
 // **********************************************************************
 
